@@ -1,0 +1,34 @@
+.help {
+    visibility: visible;
+    margin: .5em;
+    width: 10%;
+}
+
+.help:hover {
+    transition: 0.25s;
+}
+
+.help:not(:hover) {
+    transition: 0.25s;
+    filter: grayscale(1) contrast(0);
+    /* grayscale is the default (will not work in internet explorer, but who cares)*/
+}
+
+.help:not(:hover).nocon {
+    transition: 0.25s;
+    filter: grayscale(1);
+    /* grayscale is the default (will not work in internet explorer, but who cares)*/
+}
+
+a.box {
+    visibility: hidden;
+    display: inline;
+}
+
+.socials {
+    text-align: center;
+}
+
+blockquote {
+    border-left: solid 0.5rem #2855c6;
+}
