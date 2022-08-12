@@ -59,14 +59,19 @@ function makeNav(which) {
 }
 
 window.onload = function() {
+    let done = false;
     items.forEach((elem, index) => {
         var file = window.location.pathname;
         file = file.split('/');
         file = file[file.length - 1];
         if (elem[0] == file) {
             makeNav(index);
+            done = true;
         }
     });
+    if (done === false) {
+      makeNav(0);
+    } // if unrecognized, mark home as active
     window.onscroll = function() {
     document.querySelectorAll(".fades").forEach(function(elem) {
       /* Check the location of each desired element */
