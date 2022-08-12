@@ -45,7 +45,7 @@ function makeNav(which) {
     button.appendChild(span);
     div.appendChild(button);
     let divTwo = document.createElement('div');
-    divTwo.className = "collapse navbar-dark navbar-collapse col-7";
+    divTwo.className = "collapse navbar-dark navbar-collapse col-6";
     divTwo.id = "navbarSupportedContent";
     let ul = document.createElement('ul');
     ul.className = "navbar-nav me-auto mb-2 mb-lg-0";
