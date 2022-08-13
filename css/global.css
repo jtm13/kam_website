@@ -23,3 +23,17 @@
 .fades.fade-in {
     opacity: 1;
 }
+
+.dropdown-toggle.no-caret::after {
+    content: none;
+}
+
+nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
+@media only screen and (max-width: 979px) {
+    ul.dropdown-menu {
+        display: block;
+    }
+}

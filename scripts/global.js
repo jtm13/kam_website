@@ -1,4 +1,5 @@
-const items = [["index.html", "Home"], ["service.html", "Services"], ["pricing.html", "Pricing"],
+const items = [["index.html", "Home"], ["service.html", "Services", [["service.html", "General"], ["sub-service/sub.html", "Sub"], ["sub-service/sub.html", "Sub"]]],
+                ["pricing.html", "Pricing", [["pricing.html", "General"], ["sub-pricing/prices.html", "sub"], ["sub-pricing/prices.html", "Sub"]]],
                 ["work.html", "Our Work"], ["connect.html", "Connect"], ["consultation.html", "Free Consultation"]];
 
 function makeNavLink(active, link, name) {
@@ -13,9 +14,40 @@ function makeNavLink(active, link, name) {
     return li;
 }
 
+function makeNavDropdownItem(link, text) {
+  let li = document.createElement('li');
+  let a = document.createElement('a');
+  a.className = 'dropdown-item';
+  a.href = link;
+  let node = document.createTextNode(text);
+  a.appendChild(node);
+  li.appendChild(a);
+  return li;
+}
+
+function makeNavDropdown(active, link, name, dropped) {
+  let li = document.createElement('li');
+  li.className = 'nav-item dropdown';
+  let a = document.createElement('a');
+  a.className = `nav-link ${(active) ? 'active' : ''} dropdown-toggle no-caret`;
+  a.href = link;
+  a.setAttribute('data-target', link);
+  a.setAttribute('role', 'button');
+  text = document.createTextNode(name);
+  a.appendChild(text);
+  li.appendChild(a);
+  let ul = document.createElement('ul');
+  ul.className = 'dropdown-menu bg-black text-white';
+  dropped.forEach((elem) => {
+    ul.appendChild(makeNavDropdownItem(elem[0], elem[1]));
+  });
+  li.appendChild(ul);
+  return li;
+}
+
 function makeNav(which) {
     let nav = document.createElement('nav');
-    nav.className = "navbar navbar-expand-lg navbar-black bg-black";
+    nav.className = "navbar navbar-expand-lg navbar-black bg-black sticky-top";
     let div = document.createElement('div');
     div.className = 'container-fluid';
     let a = document.createElement('a');
@@ -50,7 +82,11 @@ function makeNav(which) {
     let ul = document.createElement('ul');
     ul.className = "navbar-nav me-auto mb-2 mb-lg-0";
     items.forEach((elem, index) => {
+      if (elem.length == 2) {
         ul.appendChild(makeNavLink((which == index), elem[0], elem[1]));
+      } else {
+        ul.appendChild(makeNavDropdown((which == index), elem[0], elem[1], elem[2]));
+      }
     });
     divTwo.appendChild(ul);
     div.appendChild(divTwo);
