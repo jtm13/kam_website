@@ -94,7 +94,7 @@ function makeNav(which) {
     document.body.insertBefore(nav, document.body.firstElementChild);
 }
 
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', () => {
     let done = false;
     items.forEach((elem, index) => {
         var file = window.location.pathname;
@@ -108,17 +108,23 @@ window.onload = function() {
     if (done === false) {
       makeNav(0);
     } // if unrecognized, mark home as active
-    window.onscroll = function() {
+});
+
+window.onload = function() {
     document.querySelectorAll(".fades").forEach(function(elem) {
-      /* Check the location of each desired element */
-      var objectBottom = elem.getBoundingClientRect();
-      objectBottom = objectBottom.top;
-      /* If the element is completely within bounds of the window, fade it in */
-      if (objectBottom < window.innerHeight/2) { //object comes into view (scrolling down)
-        if (window.getComputedStyle(elem).getPropertyValue("opacity") == '0') elem.classList.toggle('fade-in');
-      } else { //object goes out of view (scrolling up)
-        if (window.getComputedStyle(elem).getPropertyValue("opacity") == '1') elem.classList.toggle('fade-in');
-      }
+      elem.style.opacity = '0';
     });
+    window.onscroll = function() {
+      document.querySelectorAll(".fades").forEach(function(elem) {
+        /* Check the location of each desired element */
+        var objectBottom = elem.getBoundingClientRect();
+        objectBottom = objectBottom.top;
+        /* If the element is completely within bounds of the window, fade it in */
+        if (objectBottom <= window.innerHeight/2) { //object comes into view (scrolling down)
+          if (elem.style.opacity == '0') elem.style.opacity = 1;
+        } else { //object goes out of view (scrolling up)
+          if (elem.style.opacity == '1') elem.style.opacity = 0;
+        }
+      });
   }; //invoke scroll-handler on page-load
 };
